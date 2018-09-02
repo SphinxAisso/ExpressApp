@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const { sequelize } = require('./models')
+
 // Routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var registerRouter = require('./routes/register');
+const indexRouter = require('./routes/index');
+const registerRouter = require('./routes/register');
 
-
+// app
 const app = express();
 
 // view engine setup
@@ -22,9 +22,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/', registerRouter);
-app.use('/users', usersRouter);
 
-/*---------------------------------------Sequelize--------------------------------*/
+// Sequelize
 sequelize.sync()
     .then(() => {
         app.listen(3000);
