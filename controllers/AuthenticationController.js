@@ -1,5 +1,5 @@
 const { User } = require('../models')
-const { cryptoPassword } = require('../tools/crypto.Hmac')
+const { cryptoPassword } = require('../tools/crypto.hmac')
 
 async function register(req, res) {
     try {

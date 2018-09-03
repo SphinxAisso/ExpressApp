@@ -33,4 +33,17 @@ async function updatUser(req, res, next) {
 	res.send(user);	
 }
 
-module.exports = { getUsers, getUserById, updatUser };
+async function deleteUser(req, res, next) {
+	const user = await User.findById(req.params.id);
+	if(!user) {
+		return res.status(400).send({
+			error: `Eerror during getting user by id`
+		});
+	}
+	await user.destroy();
+	console.log("User "+user.email+" deleted with success ");
+	res.send(user);
+}
+
+
+module.exports = { getUsers, getUserById, updatUser, deleteUser };

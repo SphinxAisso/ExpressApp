@@ -21,4 +21,7 @@ router.route('/api/user/:id')
     .put(
     userController.updatUser)
 
+    .delete(
+    userController.deleteUser)
+
 module.exports = router;
