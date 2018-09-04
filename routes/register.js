@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userConstroller');
-const authenticationController = require('../controllers/AuthenticationController');
+const authenticationController = require('../controllers/authenticationController');
 const authenticationControllerPolicy = require('../policies/authenticationControllerPolicy');
 
 router.post('/api/register',

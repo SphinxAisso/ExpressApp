@@ -16,11 +16,22 @@ fs
     .filter((file) => 
         file !== 'index.js'
     )
+    .sort((b, a) => a.localeCompare(b))
     .forEach((file) => {
         const model = sequelize.import(path.join(__dirname, file))
-        console.log(model.name)
+        console.log("File currently loading : " + file + " for model " + model.name);
         db[model.name] = model
     })
+
+const { User, Entreprise, Employee } = db;
+
+console.log('User ' + User)
+console.log('Entreprise ' + Entreprise)
+
+User.hasMany(Entreprise);
+Entreprise.belongsTo(User);
+Entreprise.hasMany(Employee);
+Employee.belongsTo(Entreprise);
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize

@@ -8,6 +8,12 @@ const { sequelize } = require('./models')
 // Routes
 const indexRouter = require('./routes/index');
 const registerRouter = require('./routes/register');
+const entrepriseRouter = require('./routes/entreprise');
+const employeeRouter = require('./routes/employee');
+
+// Authenfication packages
+const session = require('express-session');
+const passport = require('passport');
 
 // app
 const app = express();
@@ -20,8 +26,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: 'sqdkaoizdbqmdzjdkqsa',
+    resave: false,
+    saveUnitialized: false,
+    // cooke: {secure: true}
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Route
 app.use('/', indexRouter);
 app.use('/', registerRouter);
+app.use('/', entrepriseRouter);
+app.use('/', employeeRouter);
 
 // Sequelize
 sequelize.sync()

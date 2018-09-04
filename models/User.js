@@ -1,4 +1,4 @@
-const user = (sequelize) =>
+const User = (sequelize) =>
     sequelize.define('User', {
         email: {
             type: String,
@@ -7,4 +7,4 @@ const user = (sequelize) =>
         password: String
     });
 
-module.exports = user
+module.exports = User
