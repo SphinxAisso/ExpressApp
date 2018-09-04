@@ -1,6 +1,9 @@
 const { User } = require('../models')
 const { cryptoPassword } = require('../tools/crypto.hmac')
 
+// Authenfication packages
+const passport = require('passport');
+
 async function register(req, res) {
     try {
         const password = cryptoPassword(req.body.password);
@@ -24,12 +27,23 @@ async function signIn(req, res) {
                 error: `This email or password is not correct!`
             });
         }
-        return res.send("Authenfication with success");
+        req.login(user.email, function (err) {
+            res.redirect('/');
+          //  res.send("Authenfication with success");
+        });
     } catch (err) {
         res.status(400).send({
             error: `This email account is already in use`
         })
     }
 }
+
+passport.serializeUser(function (user_id, done) {
+    done(null, user_id);
+});
+
+passport.deserializeUser(function (user_id, done) {
+    done(null, user_id);
+});
 
 module.exports = { register, signIn }
