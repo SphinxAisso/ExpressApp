@@ -21,7 +21,6 @@ async function signIn(req, res) {
     try {
         const user = await User.findOne({ where: { "email": req.body.email } });
         const password = cryptoPassword(req.body.password);
-
         if (!user || user.password !== password) {
             res.status(400).send({
                 error: `This email or password is not correct!`

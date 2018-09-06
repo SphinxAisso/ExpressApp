@@ -8,7 +8,7 @@ router.post('/api/register',
     authenticationControllerPolicy.register,
     authenticationController.register);
 
-router.post('/api/authentification',
+router.post('/api/login',
     authenticationController.signIn);
 
 router.get('/api/users',

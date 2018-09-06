@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { sequelize } = require('./models')
 
@@ -14,6 +13,10 @@ const employeeRouter = require('./routes/employee');
 // Authenfication packages
 const session = require('express-session');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
+
+// initalize sequelize with session store
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // app
 const app = express();
@@ -27,13 +30,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+    secret: 'keyboard cat',
+    store: new SequelizeStore({
+        db: sequelize
+    }),
+    resave: false, // we support the touch method so per the express-session docs this should be set to false
+    proxy: true // if you do SSL outside of node.
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+/*
+ * 
+ app.use(session({
     secret: 'sqdkaoizdbqmdzjdkqsa',
     resave: false,
     saveUnitialized: false,
     // cooke: {secure: true}
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+*
+*/
 
 //Route
 app.use('/', indexRouter);
