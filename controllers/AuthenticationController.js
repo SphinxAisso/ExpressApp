@@ -26,7 +26,7 @@ async function signIn(req, res) {
                 error: `This email or password is not correct!`
             });
         }
-        req.login(user.email, function (err) {
+        req.login(user.id, function (err) {
             res.redirect('/');
           //  res.send("Authenfication with success");
         });

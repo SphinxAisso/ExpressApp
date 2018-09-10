@@ -11,17 +11,4 @@ router.post('/api/register',
 router.post('/api/login',
     authenticationController.signIn);
 
-router.get('/api/users',
-    userController.getUsers);
-
-router.route('/api/user/:id')
-    .get(
-    userController.getUserById)
-
-    .put(
-    userController.updatUser)
-
-    .delete(
-    userController.deleteUser)
-
 module.exports = router;

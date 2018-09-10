@@ -41,7 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 /*
  * 
- app.use(session({
+  app.use(session({
     secret: 'sqdkaoizdbqmdzjdkqsa',
     resave: false,
     saveUnitialized: false,
@@ -49,7 +49,6 @@ app.use(passport.session());
 }));
 *
 */
-
 //Route
 app.use('/', indexRouter);
 app.use('/', registerRouter);
